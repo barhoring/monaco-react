@@ -21,10 +21,16 @@ const Settings = _ => {
   const {
     state: {
       editor: { selectedLanguageId, options },
-      monacoTheme
+      monacoTheme,
+      currentFile
     },
     actions: {
-      editor: { setSelectedLanguageId, setOptions, setMonacoTheme },
+      editor: {
+        setSelectedLanguageId,
+        setOptions,
+        setMonacoTheme,
+        setCurrentFile
+      },
       showNotification
     },
     effects: { defineTheme }
@@ -39,6 +45,7 @@ const Settings = _ => {
   function handleThemeChange(ev) {
     const theme = ev.target.value;
 
+    setCurrentFile("yok");
     if (config.defaultThemes.includes(theme)) {
       setMonacoTheme(theme);
     } else {

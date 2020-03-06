@@ -1,27 +1,39 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from "react";
 
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import Link from '@material-ui/core/Link';
-import Button from '@material-ui/core/Button';
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
+import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
+import Link from "@material-ui/core/Link";
+import Button from "@material-ui/core/Button";
 
-import Editor from '@monaco-editor/react';
+import Editor from "@monaco-editor/react";
 
-import { useStore } from 'store';
-import config from 'config';
-import { noop } from 'utils';
+import { useStore } from "store";
+import config from "config";
+import { noop } from "utils";
 
-import useStyles from './useStyles';
+import useStyles from "./useStyles";
 
 const Settings = _ => {
   const classes = useStyles();
   const [isEditorReady, setIsEditorReady] = useState(false);
   const {
-    state: { editor: { selectedLanguageId, options }, monacoTheme },
-    actions: { editor: { setSelectedLanguageId, setOptions, setMonacoTheme }, showNotification },
-    effects: { defineTheme },
+    state: {
+      editor: { selectedLanguageId, options },
+      monacoTheme,
+      currentFile
+    },
+    actions: {
+      editor: {
+        setSelectedLanguageId,
+        setOptions,
+        setMonacoTheme,
+        setCurrentFile
+      },
+      showNotification
+    },
+    effects: { defineTheme }
   } = useStore();
   const [getEditorValue, setGetEditorValue] = useState(noop);
   const editorRef = useRef();
@@ -33,6 +45,7 @@ const Settings = _ => {
   function handleThemeChange(ev) {
     const theme = ev.target.value;
 
+    setCurrentFile();
     if (config.defaultThemes.includes(theme)) {
       setMonacoTheme(theme);
     } else {
@@ -52,16 +65,21 @@ const Settings = _ => {
       oprions = JSON.parse(getEditorValue());
       setOptions(oprions);
     } catch {
-      showNotification({ message: config.messages.invalidOptions, variant: 'error'})
+      showNotification({
+        message: config.messages.invalidOptions,
+        variant: "error"
+      });
     }
   }
-
+  console.log("about to change file");
   return (
     <div className={classes.root}>
       <Typography variant="h5">Settings</Typography>
       <Divider />
       <div className={classes.languages}>
-        <Typography className={classes.title} variant="h6">Languages</Typography>
+        <Typography className={classes.title} variant="h6">
+          Languages
+        </Typography>
         <TextField
           select
           variant="filled"
@@ -77,9 +95,10 @@ const Settings = _ => {
           ))}
         </TextField>
       </div>
-
       <div>
-        <Typography className={classes.title} variant="h6">Themes</Typography>
+        <Typography className={classes.title} variant="h6">
+          Themes
+        </Typography>
         <TextField
           select
           variant="filled"
@@ -93,19 +112,26 @@ const Settings = _ => {
               {theme}
             </MenuItem>
           ))}
-          <MenuItem disabled><Divider /></MenuItem>
-          {config.monacoThemes.filter(theme => !theme.includes(' ')).map(theme => (
-            <MenuItem key={theme} value={theme}>
-              {theme}
-            </MenuItem>
-          ))}
+          <MenuItem disabled>
+            <Divider />
+          </MenuItem>
+          {config.monacoThemes
+            .filter(theme => !theme.includes(" "))
+            .map(theme => (
+              <MenuItem key={theme} value={theme}>
+                {theme}
+              </MenuItem>
+            ))}
         </TextField>
       </div>
-
+      hisdkfjdskfjds;lkfjdsf{currentFile}
       <div>
-        <Typography className={classes.title} variant="h6">Options</Typography>
+        <Typography className={classes.title} variant="h6">
+          Options
+        </Typography>
         <Typography variant="subtitle2" gutterBottom>
-          For full list of options with descriptions visit <Link
+          For full list of options with descriptions visit{" "}
+          <Link
             href={config.urls.IEditorOptions}
             rel="noreferrer"
             target="_blank"
@@ -114,7 +140,8 @@ const Settings = _ => {
           </Link>
         </Typography>
         <Typography variant="subtitle2" gutterBottom>
-          Now you can change options below, press apply and see result in the left side editor
+          Now you can change options below, press apply and see result in the
+          left side editor
         </Typography>
         <div className={classes.editor}>
           <Editor
@@ -125,7 +152,13 @@ const Settings = _ => {
             editorDidMount={handleEditorDidMount}
           />
         </div>
-        <Button variant="outlined" disabled={!isEditorReady} onClick={handleApply}>Apply</Button>
+        <Button
+          variant="outlined"
+          disabled={!isEditorReady}
+          onClick={handleApply}
+        >
+          Apply
+        </Button>
       </div>
     </div>
   );
