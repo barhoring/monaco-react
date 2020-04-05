@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { rTabs } from 'utils';
+import { rTabs } from "utils";
 
 const examples = {
   1: rTabs(`
-    /* Using a single database query, find all the leads in
+    /* Fuck
     the database that have the same email address as any
     of the leads being inserted or updated. */
     for (Lead lead : [SELECT Email FROM Lead WHERE Email IN :leadMap.KeySet()]) {
@@ -11,6 +11,15 @@ const examples = {
       newLead.Email.addError('A lead with this email address already exists.');
     }
   `),
+  // 1: rTabs(`
+  //   /* Using a single database query, find all the leads in
+  //   the database that have the same email address as any
+  //   of the leads being inserted or updated. */
+  //   for (Lead lead : [SELECT Email FROM Lead WHERE Email IN :leadMap.KeySet()]) {
+  //     Lead newLead = leadMap.get(lead.Email);
+  //     newLead.Email.addError('A lead with this email address already exists.');
+  //   }
+  // `),
   2: rTabs(`
     # Create a resource group.
     az group create --name myResourceGroup --location westeurope
@@ -388,7 +397,9 @@ const examples = {
       }
     }
   `),
-  9: rTabs(`Content-Security-Policy: default-src 'self'; img-src *; media-src media1.com media2.com; script-src userscripts.example.com`),
+  9: rTabs(
+    `Content-Security-Policy: default-src 'self'; img-src *; media-src media1.com media2.com; script-src userscripts.example.com`
+  ),
   10: rTabs(`
     @keyframes flip {
       from {
@@ -610,7 +621,7 @@ const examples = {
           </button>
 
           <Editor
-            height="90vh" // By default, it fully fits with its parent
+            height="90vh" // bar By default, it fully fits with its parent
             theme={theme}
             language={language}
             value={examples[language]}
@@ -1453,7 +1464,7 @@ const examples = {
       start: *ORIGIN
       color: 0xFFEEBB
       text: Pretty vector drawing.
-  `),
+  `)
 };
 
 export default examples;

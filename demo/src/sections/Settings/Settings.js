@@ -45,7 +45,7 @@ const Settings = _ => {
   function handleThemeChange(ev) {
     const theme = ev.target.value;
 
-    setCurrentFile();
+    setCurrentFile("yok");
     if (config.defaultThemes.includes(theme)) {
       setMonacoTheme(theme);
     } else {
@@ -71,12 +71,12 @@ const Settings = _ => {
       });
     }
   }
-  console.log("about to change file");
+
   return (
     <div className={classes.root}>
       <Typography variant="h5">Settings</Typography>
       <Divider />
-      <div className={classes.languages}>
+      {/* <div className={classes.languages}>
         <Typography className={classes.title} variant="h6">
           Languages
         </Typography>
@@ -94,7 +94,8 @@ const Settings = _ => {
             </MenuItem>
           ))}
         </TextField>
-      </div>
+      </div> */}
+
       <div>
         <Typography className={classes.title} variant="h6">
           Themes
@@ -124,14 +125,11 @@ const Settings = _ => {
             ))}
         </TextField>
       </div>
-      hisdkfjdskfjds;lkfjdsf{currentFile}
-      <div>
-        <Typography className={classes.title} variant="h6">
-          Options
-        </Typography>
+
+      {/* <div>
+        <Typography className={classes.title} variant="h6">Options</Typography>
         <Typography variant="subtitle2" gutterBottom>
-          For full list of options with descriptions visit{" "}
-          <Link
+          For full list of options with descriptions visit <Link
             href={config.urls.IEditorOptions}
             rel="noreferrer"
             target="_blank"
@@ -140,8 +138,7 @@ const Settings = _ => {
           </Link>
         </Typography>
         <Typography variant="subtitle2" gutterBottom>
-          Now you can change options below, press apply and see result in the
-          left side editor
+          Now you can change options below, press apply and see result in the left side editor
         </Typography>
         <div className={classes.editor}>
           <Editor
@@ -152,14 +149,8 @@ const Settings = _ => {
             editorDidMount={handleEditorDidMount}
           />
         </div>
-        <Button
-          variant="outlined"
-          disabled={!isEditorReady}
-          onClick={handleApply}
-        >
-          Apply
-        </Button>
-      </div>
+        <Button variant="outlined" disabled={!isEditorReady} onClick={handleApply}>Apply</Button>
+      </div> */}
     </div>
   );
 };
